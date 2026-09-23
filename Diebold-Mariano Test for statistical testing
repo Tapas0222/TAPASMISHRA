@@ -1,0 +1,21 @@
+from google.colab import drive
+import pandas as pd
+# Mount Google Drive to /content/drive
+drive.mount('/content/drive')
+df = pd.read_csv('/content/drive/MyDrive/COLAB-FILES/HCL_date_act_pred_All.csv')
+# Testing the dataset is loaded correctly
+#df.head()
+# diebold- Mariano Test code starts here.....
+
+import numpy as np
+from statsmodels.tsa.stattools import diebold_mariano_test
+#rng = np.random.default_rng(0)
+y = df.ACTUAL
+#scale = rng.chisquare(5, size=y.shape) / 5
+forecast_a = df.LSTMSHAP
+forecast_b = df.TCN
+def qlike(y, forecast):
+    ratio = y / forecast
+    return ratio - np.log(ratio) - 1
+res = diebold_mariano_test(y, forecast_a, forecast_b, criterion=qlike)
+res.statistic, res.pvalue
