@@ -1,1 +1,16 @@
-
+emi=4000
+roi=0.071
+term=5
+principal=emi
+totaldeposit=emi
+for i in range(term):
+    for j in range(12):
+        interest=principal*roi/12
+        principal+=interest
+        principal+=emi
+        totaldeposit+=emi
+totaldeposit-=emi
+principal-=emi
+print("total deposit ", totaldeposit)
+print("Total interest ","%.2f" % (principal-totaldeposit))
+print("maturity Amount ","%.2f" % principal)
