@@ -1,0 +1,22 @@
+emi=4000
+roi=0.067
+term=5
+principal=emi
+totaldeposit=emi
+interest=0
+for i in range(term):
+    for j in range(12):
+      monthint=principal*roi/12
+      interest+=monthint
+      principal+=emi
+      totaldeposit+=emi
+      if((j+1)%3==0):
+           principal+=interest
+           print("year ",i+1," quarter ", (int)(j+1)/3, "interest earned ", "%.2f" % interest, "total bal ", "%.2f" %  principal)
+           interest=0
+totaldeposit-=emi
+principal-=emi
+principal-=interest
+print("total deposit ", totaldeposit)
+print("Total interest ","%.2f" % (principal-totaldeposit))
+print("maturity Amount ","%.2f" % principal)
