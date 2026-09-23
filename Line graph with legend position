@@ -1,0 +1,29 @@
+from google.colab import drive
+drive.mount('/content/drive')
+import pandas as pd
+DF=pd.read_csv("/content/drive/MyDrive/COLAB-FILES/WIP_date_act_pred_All.csv")
+DF.head()
+x=DF.NOS
+import matplotlib.pyplot as plt
+import numpy as np
+
+f = plt.figure()
+f.set_figwidth(10)
+f.set_figheight(4)
+
+
+plt.plot(x, DF.ACTUAL ,  linestyle='-', label='ACTUAL', color='blue')
+plt.plot(x, DF.ARIMA ,  linestyle='-.', label='ARIMA', color='blue')
+plt.plot(x, DF.RF , linestyle=':', label='Random Forest', color='blue')
+plt.plot(x, DF.XGB ,  linestyle='--', label='XGBoost', color='blue')
+plt.plot(x, DF.TRANSFORMER , linestyle='-', label='Transformer', color='magenta')
+plt.plot(x, DF.TCN ,  linestyle='-.', label='TCN', color='magenta')
+plt.plot(x, DF.GRU ,  linestyle=':', label='GRU', color='magenta')
+plt.plot(x, DF.LSTMSHAP ,  linestyle='--', label='Proposed', color='magenta')
+
+plt.yticks( fontsize=12)
+plt.xticks([1, 1000, 2000, 3000], ['2013', '2017', '2021', '2025'], fontsize=12)
+plt.xlabel("TIME", fontsize=12)
+plt.ylabel("Predicted Closing Price", fontsize=12)
+plt.legend(bbox_to_anchor=(0.95, 1.2), ncol=4, fontsize=12)
+plt.show()
